@@ -1,3 +1,5 @@
+<img src="public/logo.png" width="120" alt="List2Maps logo">
+
 # List2Maps
 
 **Turn any Google Maps shared list into a fast, filterable map.**

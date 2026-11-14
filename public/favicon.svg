@@ -1,9 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- List2Maps mark: solid teal map pin with three white list lines.
+       Matches public/logo.png; drawn as vectors so it stays crisp at 16px. -->
   <path fill="#0f766e" d="M32 2C18.7 2 8 12.7 8 26c0 18.6 22 36 22 36s22-17.4 22-36C52 12.7 45.3 2 32 2z"/>
-  <circle fill="#ffffff" cx="32" cy="26" r="15"/>
-  <g stroke="#0f766e" stroke-width="3" stroke-linecap="round">
-    <line x1="24" y1="20" x2="40" y2="20"/>
-    <line x1="24" y1="26" x2="40" y2="26"/>
-    <line x1="24" y1="32" x2="34" y2="32"/>
+  <g fill="#ffffff">
+    <rect x="20" y="18" width="24" height="4.6" rx="2.3"/>
+    <rect x="20" y="26" width="24" height="4.6" rx="2.3"/>
+    <rect x="20" y="34" width="24" height="4.6" rx="2.3"/>
   </g>
 </svg>

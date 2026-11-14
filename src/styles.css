@@ -17,6 +17,8 @@ body {
   gap: 8px 16px;
   align-items: center;
 }
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand .logo { width: 36px; height: 36px; flex-shrink: 0; }
 .brand h1 { margin: 0; font-size: 22px; letter-spacing: -0.02em; color: #0f766e; }
 .brand p { margin: 0; font-size: 13px; color: #666; }
 .loadbar { display: flex; flex: 1; min-width: 280px; gap: 8px; }

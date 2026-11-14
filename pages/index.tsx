@@ -565,8 +565,17 @@ export default function IndexPage({ examples }: Props) {
     <div className="app">
       <header className="header">
         <div className="brand">
-          <h1>List2Maps</h1>
-          <p>Turn any Google Maps shared list into a fast, filterable map.</p>
+          <img
+            src="/logo.png"
+            className="logo"
+            alt="List2Maps logo"
+            width={36}
+            height={36}
+          />
+          <div className="brand-text">
+            <h1>List2Maps</h1>
+            <p>Turn any Google Maps shared list into a fast, filterable map.</p>
+          </div>
         </div>
         <form
           className="loadbar"

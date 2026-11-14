@@ -277,7 +277,7 @@ export default function IndexPage({ examples }: Props) {
     map.addControl(new maplibregl.NavigationControl(), 'top-right');
     mapRef.current = map;
     // Debug affordance: lets a verification harness read camera state.
-    (window as unknown as { __openlistMap?: maplibregl.Map }).__openlistMap =
+    (window as unknown as { __list2mapsMap?: maplibregl.Map }).__list2mapsMap =
       map;
 
     const addLayers = () => {
@@ -565,7 +565,7 @@ export default function IndexPage({ examples }: Props) {
     <div className="app">
       <header className="header">
         <div className="brand">
-          <h1>OpenList</h1>
+          <h1>List2Maps</h1>
           <p>Google Maps shared lists, rendered on OpenFreeMap.</p>
         </div>
         <form

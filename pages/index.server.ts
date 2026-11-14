@@ -21,7 +21,7 @@ export const loader = defineHandler(async () => {
 
 export const head = defineHead(() => {
   return {
-    title: 'OpenList — Google Maps lists on OpenFreeMap',
+    title: 'List2Maps — Google Maps lists on OpenFreeMap',
     meta: [
       {
         name: 'description',

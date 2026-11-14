@@ -16,21 +16,21 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 ./node_modules/.bin/esbuild scripts/harness/harness.ts --bundle \
-  --platform=node --format=esm --outfile=/tmp/openlist-harness.mjs \
+  --platform=node --format=esm --outfile=/tmp/list2maps-harness.mjs \
   --alias:void/kv="$PWD/scripts/harness/kv-stub.ts" --log-level=warning
-node /tmp/openlist-harness.mjs
+node /tmp/list2maps-harness.mjs
 
 python3 - <<'EOF'
 import json, subprocess
 
 manifest = json.load(open("fixtures-manifest.json"))
 for key, value in manifest.items():
-    with open("/tmp/openlist-seed-body.json", "w") as f:
+    with open("/tmp/list2maps-seed-body.json", "w") as f:
         json.dump({"key": key, "value": value}, f)
     r = subprocess.run(["curl", "-s", "-X", "POST",
                         "http://127.0.0.1:5173/api/debug-seed",
                         "-H", "Content-Type: application/json",
-                        "--data-binary", "@/tmp/openlist-seed-body.json"],
+                        "--data-binary", "@/tmp/list2maps-seed-body.json"],
                        capture_output=True, text=True, timeout=60)
     print(key, "->", r.stdout.strip()[:80])
 EOF

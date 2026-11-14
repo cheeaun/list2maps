@@ -1,4 +1,4 @@
-# OpenList
+# List2Maps
 
 Paste a Google Maps shared list link, see every place on
 [OpenFreeMap](https://openfreemap.org/) (MapLibre GL, no API key), with

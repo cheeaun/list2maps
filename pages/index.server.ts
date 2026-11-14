@@ -21,12 +21,16 @@ export const loader = defineHandler(async () => {
 
 export const head = defineHead(() => {
   return {
-    title: 'List2Maps — Google Maps lists on OpenFreeMap',
+    title: 'List2Maps — turn a Google Maps list into a map',
     meta: [
       {
         name: 'description',
         content:
-          'Paste a Google Maps shared list link and see every place on OpenFreeMap, with search, open-now and open-at filters.',
+          'Paste a Google Maps shared list link and get every place on OpenFreeMap — searchable, with open-now and open-at filters, GeoJSON and CSV export. No account, no API key.',
+      },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1',
       },
     ],
     link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],

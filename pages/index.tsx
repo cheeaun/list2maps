@@ -566,7 +566,7 @@ export default function IndexPage({ examples }: Props) {
       <header className="header">
         <div className="brand">
           <h1>List2Maps</h1>
-          <p>Google Maps shared lists, rendered on OpenFreeMap.</p>
+          <p>Turn any Google Maps shared list into a fast, filterable map.</p>
         </div>
         <form
           className="loadbar"
@@ -861,21 +861,24 @@ export default function IndexPage({ examples }: Props) {
             </>
           ) : (
             <div className="intro">
-              <h2>How it works</h2>
+              <h2>Your list, on a map that isn&apos;t Google&apos;s</h2>
               <p>
-                Paste any Google Maps shared list link — a{' '}
+                Paste any Google Maps shared list — a{' '}
                 <code>maps.app.goo.gl</code> short link, a{' '}
-                <code>google.com/maps</code> list URL, or a bare list id.
+                <code>google.com/maps</code> list URL, or a bare list id —
+                and get every place on OpenFreeMap, clustered and ready to
+                browse.
               </p>
               <p>
-                The server fetches the list (one call for every place) and
-                each place&apos;s opening hours on demand, caches them for 4
-                hours, and renders everything on OpenFreeMap — no Google
-                account, no API key.
+                Search by name or address, filter by country, or find
+                what&apos;s open now — or open at a time you pick, judged in
+                each place&apos;s own local time. Export the filtered list as
+                GeoJSON or CSV, and share it with a link.
               </p>
               <p>
-                Filters: search, country, open now / open at a time (in each
-                place&apos;s local time), plus GeoJSON and CSV export.
+                No Google account, no API key, no app to install. Lists and
+                opening hours are fetched on the server and cached for 4
+                hours.
               </p>
               <p className="fineprint">
                 Lists are fetched through Google Maps&apos; undocumented

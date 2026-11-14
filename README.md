@@ -1,15 +1,44 @@
 # List2Maps
 
-Paste a Google Maps shared list link, see every place on
-[OpenFreeMap](https://openfreemap.org/) (MapLibre GL, no API key), with
-useful filters: search, country, open now / open at a time (in each
-place's own local time), plus GeoJSON and CSV export. Shareable URLs:
-a converted list lives at `/?list=<link>`.
+**Turn any Google Maps shared list into a fast, filterable map.**
 
-Built with [Void](https://void.cloud/) (Vite + React on Cloudflare
-Workers). The server proxies Google Maps' internal list endpoints and
-caches responses in KV with stale-while-revalidate: fresh for 4 hours,
-stale served + background refresh for up to 24 hours.
+Paste a list link — a `maps.app.goo.gl` short link, a `google.com/maps`
+list URL, or a bare list id — and get every place on
+[OpenFreeMap](https://openfreemap.org/) (MapLibre GL, no API key):
+clustered markers, search, country filter, open-now / open-at filters
+judged in each place's own local time, GeoJSON + CSV export, and a
+shareable `/?list=<link>` URL for the converted list.
+
+![A 585-place vegetarian list across Singapore, clustered on OpenFreeMap](verify-list1-overview.png)
+
+No Google account, no API key, no app to install.
+
+## Try it
+
+- [SG vegetarian eats — 585 places](https://maps.app.goo.gl/JbTrPGaEyfKGRdkQ6)
+- [SG public spaces (POPS) — 34 places](https://maps.app.goo.gl/pqa6pHk9wDWgr5RP8)
+
+## Features
+
+- **Every place, one call** — a single `getlist` fetch returns the
+  whole list: name, address, coordinates, CID and `/g/` feature id.
+- **Opening hours on demand** — one `preview/place` call per place,
+  fetched lazily when you select a place or use a time filter.
+  Places without a `/g/` id (custom pins) stay in the list and are
+  marked as having no hours.
+- **Time filters that respect timezones** — "Open now" and "Open at
+  [time] for [1–6 hours]" are evaluated in each place's local time,
+  including overnight hours.
+- **Four basemaps** — Liberty, Bright, Positron, Fiord (dark).
+- **Export** — the filtered list as GeoJSON or CSV; copy a share link
+  for the current list.
+- **Mobile-friendly** — map on top, list below, page scrolls, 16px
+  inputs so iOS doesn't auto-zoom, no horizontal overflow.
+
+![List2Maps on a phone: map on top, filters and list below](verify-mobile-top.png)
+- **Fast repeat visits** — server-side KV cache, stale-while-revalidate:
+  fresh for 4 hours, stale served + background refresh for up to 24
+  hours.
 
 ## How it works
 
@@ -23,25 +52,16 @@ Browser ── /api/list?url=<shared list link> ──► Worker
                             └─ KV cache per place (SWR, 4h fresh)
 ```
 
-- **List** — one `getlist` call returns every place: name, address,
-  coordinates, CID and `/g/` feature id. Works for any shared list:
-  a `maps.app.goo.gl` short link, a `google.com/maps` list URL, or a
-  bare list id.
-- **Hours** — one `preview/place` call per place, fetched lazily
-  (on select, or in the background when an open-now/open-at filter is
-  used). Places without a `/g/` id (custom pins) can't have hours
-  fetched; they're kept in the list and marked.
-- **Cache** — KV entries live 24h; under 4h old they're served
-  directly, 4–24h they're served stale while a background refresh
-  runs (`waitUntil`), older than that they're refetched live (falling
-  back to stale on failure).
+Built with [Void](https://void.cloud/) (Vite + React on Cloudflare
+Workers). The client is a single page: MapLibre map + list sidebar,
+mobile-friendly (map on top, list below, page scrolls).
 
 ## Caveats (read this)
 
 - The list and hours come from Google Maps' **undocumented internal
-  endpoints**. They're free and keyless, but Google can change or
-  block them, and bulk use is against Maps' Terms of Service. The
-  official [Places API (New)](https://developers.google.com/maps/documentation/places/web-service)
+  endpoints**. They're free and keyless, but Google can change or block
+  them, and bulk use is against Maps' Terms of Service. The official
+  [Places API (New)](https://developers.google.com/maps/documentation/places/web-service)
   is the supported route.
 - **Rating, review count and category are not in either response**,
   so the app doesn't show or filter by them.
@@ -58,6 +78,8 @@ Browser ── /api/list?url=<shared list link> ──► Worker
 ```sh
 npm install
 npm run dev        # http://localhost:5173 (Void dev server + local KV)
+npm run build      # production build (Worker + client bundles)
+npm run typecheck  # tsc --noEmit
 ```
 
 Local dev note: workerd (the Workers runtime behind `vite dev`)
@@ -113,3 +135,5 @@ workflow (needs a `CLOUDFLARE_API_TOKEN` repo secret).
 - `src/lib/geo.ts` — country + timezone from coordinates.
 - `src/lib/time.ts` — open-now / open-at evaluation per timezone.
 - `src/lib/hours-client.ts` — client hours fetching + batching.
+- `verify-*.png` — screenshot verification captures (real data, both
+  example lists).

@@ -146,8 +146,27 @@ body {
 .fineprint { font-size: 12.5px !important; color: #888 !important; }
 
 @media (max-width: 760px) {
-  .main { flex-direction: column; }
+  /* Stack: map on top, list below, page scrolls. The desktop layout
+     is height:100dvh with an internally scrolling sidebar, which
+     would cut the list off on a phone, so on mobile the app grows
+     with its content instead. */
+  .app { height: auto; min-height: 100vh; min-height: 100dvh; }
+  .main { flex-direction: column; flex: none; }
+  .mapwrap { order: 1; height: 52vh; height: 52dvh; flex: none; }
   .sidebar { width: 100%; order: 2; border-right: none; overflow: visible; }
-  .mapwrap { order: 1; height: 46vh; flex: none; }
-  .brand p { display: none; }
+
+  .header { padding: 10px 12px 8px; gap: 6px 12px; flex-direction: column; align-items: stretch; }
+  .brand h1 { font-size: 20px; }
+  .brand p { font-size: 12px; }
+  .loadbar { flex: none; width: 100%; }
+  .loadbar button { flex-shrink: 0; }
+  .loadbar input, .loadbar button { font-size: 16px; } /* 16px stops iOS auto-zoom */
+  .search { font-size: 16px; }
+  .examples { font-size: 12.5px; }
+
+  .style-switch { top: 8px; left: 8px; }
+  .style-switch button { padding: 6px 8px; font-size: 12px; }
+
+  .places li button { padding: 10px 8px; } /* bigger touch target */
+  .detail { margin: 4px 0 12px; }
 }

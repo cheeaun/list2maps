@@ -1,0 +1,153 @@
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #1a1a1a;
+  background: #f6f6f4;
+}
+.app { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+
+.header {
+  padding: 12px 16px 10px;
+  background: #ffffff;
+  border-bottom: 1px solid #e3e3e0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+}
+.brand h1 { margin: 0; font-size: 22px; letter-spacing: -0.02em; color: #0f766e; }
+.brand p { margin: 0; font-size: 13px; color: #666; }
+.loadbar { display: flex; flex: 1; min-width: 280px; gap: 8px; }
+.loadbar input {
+  flex: 1; padding: 9px 12px; font-size: 15px;
+  border: 1px solid #cfcfcb; border-radius: 8px; min-width: 0;
+}
+.loadbar input:focus { outline: 2px solid #0f766e; outline-offset: 0; border-color: #0f766e; }
+.loadbar button, .exports button {
+  padding: 9px 16px; font-size: 15px; font-weight: 600;
+  background: #0f766e; color: #fff; border: none; border-radius: 8px; cursor: pointer;
+}
+.loadbar button:disabled { opacity: 0.5; cursor: default; }
+.examples { font-size: 13px; color: #666; width: 100%; }
+.linklike {
+  background: none; border: none; padding: 0; cursor: pointer;
+  color: #0f766e; font-size: 13px; text-decoration: underline;
+}
+
+.error {
+  background: #fef2f2; color: #b91c1c; border-bottom: 1px solid #fecaca;
+  padding: 10px 16px; font-size: 14px;
+}
+
+.main { flex: 1; display: flex; min-height: 0; }
+.sidebar {
+  width: 380px; flex-shrink: 0; background: #fff;
+  border-right: 1px solid #e3e3e0;
+  overflow-y: auto; padding: 14px 14px 20px;
+}
+.mapwrap { flex: 1; position: relative; min-width: 0; }
+.map { position: absolute; inset: 0; }
+.style-switch {
+  position: absolute; top: 10px; left: 10px; z-index: 5;
+  display: flex; background: #fff; border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25); overflow: hidden;
+}
+.style-switch button {
+  border: none; background: #fff; padding: 7px 10px; font-size: 12.5px;
+  cursor: pointer; border-right: 1px solid #e5e5e5; color: #444;
+}
+.style-switch button:last-child { border-right: none; }
+.style-switch button.active { background: #0f766e; color: #fff; }
+.attr {
+  position: absolute; bottom: 2px; right: 8px; z-index: 5; margin: 0;
+  font-size: 11px; color: #555; background: rgba(255,255,255,0.85);
+  padding: 1px 6px; border-radius: 4px;
+}
+
+.listhead h2 { margin: 0 0 2px; font-size: 18px; }
+.meta { margin: 0 0 10px; font-size: 13px; color: #555; line-height: 1.5; }
+.cache { color: #888; font-size: 12px; }
+
+.filters { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+.search {
+  padding: 9px 12px; font-size: 15px;
+  border: 1px solid #cfcfcb; border-radius: 8px; width: 100%;
+}
+.filterrow { display: flex; gap: 8px; }
+.filterrow select {
+  flex: 1; padding: 8px; font-size: 14px;
+  border: 1px solid #cfcfcb; border-radius: 8px; background: #fff; min-width: 0;
+}
+.timeseg { display: flex; border: 1px solid #cfcfcb; border-radius: 8px; overflow: hidden; }
+.timeseg button {
+  flex: 1; border: none; background: #fff; padding: 9px 4px;
+  font-size: 14px; cursor: pointer; border-right: 1px solid #e5e5e5; color: #333;
+}
+.timeseg button:last-child { border-right: none; }
+.timeseg button.active { background: #0f766e; color: #fff; font-weight: 600; }
+.openat { display: flex; gap: 8px; }
+.openat select, .openat input {
+  flex: 1; padding: 8px; font-size: 14px; min-width: 0;
+  border: 1px solid #cfcfcb; border-radius: 8px; background: #fff;
+}
+.progress { font-size: 13px; color: #555; }
+.progress .bar { height: 6px; background: #e5e5e5; border-radius: 3px; margin-top: 4px; overflow: hidden; }
+.progress .bar div { height: 100%; background: #0f766e; transition: width 0.2s; }
+.hint { margin: 0; font-size: 12.5px; color: #777; line-height: 1.45; }
+
+.detail {
+  position: relative; border: 1px solid #d6e8e5; background: #f2faf9;
+  border-radius: 10px; padding: 12px; margin: 4px 0 12px;
+}
+.detail .close {
+  position: absolute; top: 6px; right: 10px; border: none; background: none;
+  font-size: 20px; cursor: pointer; color: #888; line-height: 1;
+}
+.detail h3 { margin: 0 24px 4px 0; font-size: 16px; }
+.addr { margin: 0 0 6px; font-size: 13.5px; color: #555; }
+.status { margin: 0 0 8px; font-size: 13.5px; }
+.status .open { color: #15803d; font-weight: 600; }
+.status .closed { color: #b91c1c; font-weight: 600; }
+.hours { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-bottom: 6px; }
+.hours td { padding: 2px 0; }
+.hours td:first-child { width: 44px; color: #666; }
+.note { margin: 4px 0; font-size: 12.5px; color: #777; }
+.links { margin: 8px 0 0; font-size: 13.5px; }
+.links a { color: #0f766e; }
+
+.count { font-size: 13px; color: #666; margin: 4px 0 6px; }
+.places { list-style: none; margin: 0; padding: 0; }
+.places li button {
+  display: flex; gap: 8px; align-items: flex-start; width: 100%;
+  text-align: left; padding: 8px 8px; border: none; background: none;
+  border-bottom: 1px solid #f0f0ee; cursor: pointer; border-radius: 6px;
+}
+.places li button:hover { background: #f4f4f2; }
+.places li button.selected { background: #e6f4f2; }
+.num { font-size: 12px; color: #999; padding-top: 2px; flex-shrink: 0; width: 30px; }
+.ptext { flex: 1; min-width: 0; }
+.pname { display: block; font-size: 14.5px; font-weight: 600; line-height: 1.3; }
+.paddr { display: block; font-size: 12.5px; color: #777; line-height: 1.35; margin-top: 1px; }
+.dot {
+  width: 9px; height: 9px; border-radius: 50%; margin-top: 6px; flex-shrink: 0;
+  background: #cbd5e1;
+}
+.dot.open { background: #16a34a; }
+.dot.closed { background: #dc2626; }
+.empty { font-size: 14px; color: #777; padding: 12px 4px; }
+.exports { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+.exports button { padding: 8px 12px; font-size: 13.5px; }
+
+.intro h2 { margin: 4px 0 8px; font-size: 17px; }
+.intro p { font-size: 14px; line-height: 1.55; color: #444; }
+.intro code { background: #f0f0ee; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+.fineprint { font-size: 12.5px !important; color: #888 !important; }
+
+@media (max-width: 760px) {
+  .main { flex-direction: column; }
+  .sidebar { width: 100%; order: 2; border-right: none; overflow: visible; }
+  .mapwrap { order: 1; height: 46vh; flex: none; }
+  .brand p { display: none; }
+}

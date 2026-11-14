@@ -1,0 +1,27 @@
+{
+  "name": "openlist",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Convert a Google Maps shared list into an OpenFreeMap view with useful filters",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "void deploy",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "void": "^1.9.1"
+  },
+  "dependencies": {
+    "@void/react": "^1.9.1",
+    "maplibre-gl": "^6.18.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  }
+}

@@ -912,9 +912,6 @@ export default function IndexPage({ examples }: Props) {
               </button>
             ))}
           </div>
-          <p className="attr">
-            © OpenStreetMap contributors · tiles by OpenFreeMap
-          </p>
         </section>
       </main>
     </div>

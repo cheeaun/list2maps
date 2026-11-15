@@ -62,11 +62,6 @@ body {
 }
 .style-switch button:last-child { border-right: none; }
 .style-switch button.active { background: #0f766e; color: #fff; }
-.attr {
-  position: absolute; bottom: 2px; right: 8px; z-index: 5; margin: 0;
-  font-size: 11px; color: #555; background: rgba(255,255,255,0.85);
-  padding: 1px 6px; border-radius: 4px;
-}
 
 .listhead h2 { margin: 0 0 2px; font-size: 18px; }
 .meta { margin: 0 0 10px; font-size: 13px; color: #555; line-height: 1.5; }

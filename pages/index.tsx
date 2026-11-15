@@ -887,13 +887,6 @@ export default function IndexPage({ examples }: Props) {
                 Lists and opening hours are fetched on the server and cached
                 for 4 hours.
               </p>
-              <p className="fineprint">
-                Lists are fetched through Google Maps&apos; undocumented
-                internal endpoints — they can change or block access, and
-                bulk use is against Maps&apos; terms. The official Places API
-                is the supported route. Ratings and categories aren&apos;t
-                in these responses, so they aren&apos;t shown.
-              </p>
             </div>
           )}
         </aside>

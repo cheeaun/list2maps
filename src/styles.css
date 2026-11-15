@@ -140,7 +140,6 @@ body {
 .intro h2 { margin: 4px 0 8px; font-size: 17px; }
 .intro p { font-size: 14px; line-height: 1.55; color: #444; }
 .intro code { background: #f0f0ee; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
-.fineprint { font-size: 12.5px !important; color: #888 !important; }
 
 @media (max-width: 760px) {
   /* Stack: map on top, list below, page scrolls. The desktop layout

@@ -870,12 +870,11 @@ export default function IndexPage({ examples }: Props) {
             </>
           ) : (
             <div className="intro">
-              <h2>Your list, on a map that isn&apos;t Google&apos;s</h2>
+              <h2>Paste a Google Maps list link</h2>
               <p>
-                Paste any Google Maps shared list — a{' '}
-                <code>maps.app.goo.gl</code> short link, a{' '}
+                Paste a <code>maps.app.goo.gl</code> short link, a{' '}
                 <code>google.com/maps</code> list URL, or a bare list id —
-                and get every place on OpenFreeMap, clustered and ready to
+                every place shows up on the map, clustered and ready to
                 browse.
               </p>
               <p>
@@ -885,9 +884,8 @@ export default function IndexPage({ examples }: Props) {
                 GeoJSON or CSV, and share it with a link.
               </p>
               <p>
-                No Google account, no API key, no app to install. Lists and
-                opening hours are fetched on the server and cached for 4
-                hours.
+                Lists and opening hours are fetched on the server and cached
+                for 4 hours.
               </p>
               <p className="fineprint">
                 Lists are fetched through Google Maps&apos; undocumented

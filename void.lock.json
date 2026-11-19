@@ -2,7 +2,15 @@
   "version": 1,
   "source": {},
   "resolved": {
-    "compatibility_date": "2026-02-24"
+    "compatibility_date": "2026-02-24",
+    "account_id": "69ac6123a5f85c72102bb70ac9652da5",
+    "kv_namespaces": [
+      {
+        "binding": "KV",
+        "id": "02a759d1908943c786aeb557d47340cd"
+      }
+    ],
+    "name": "list2maps"
   },
-  "text": "{\n  \"compatibility_date\": \"2026-02-24\"\n}\n"
+  "text": "{\n  \"compatibility_date\": \"2026-02-24\",\n  \"account_id\": \"69ac6123a5f85c72102bb70ac9652da5\",\n  \"kv_namespaces\": [\n    {\n      \"binding\": \"KV\",\n      \"id\": \"02a759d1908943c786aeb557d47340cd\"\n    }\n  ],\n  \"name\": \"list2maps\"\n}\n"
 }

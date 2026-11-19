@@ -55,8 +55,16 @@ manual for the next session.
   A stale-closure version of this shipped empty markers.
 - **Vite dev needs `optimizeDeps.exclude: ['maplibre-gl']`** — the
   dep optimizer doesn't pre-bundle MapLibre's worker, so in dev the
-  worker URL 404s and the map stays blank. Production build bundles
-  the worker fine either way.
+  worker URL 404s and the map stays blank. Production does NOT bundle
+  the worker either: MapLibre v6 computes its worker URL at runtime
+  (`./maplibre-gl-worker.mjs` relative to the bundle), which Vite
+  cannot statically analyse, so the file was never emitted and the
+  live map failed with "Worker failed to load" (404 on
+  `/assets/maplibre-gl-worker.mjs`, 2026-11-19). The fix is in
+  `pages/index.tsx`: import the worker with `?url` and hand it to
+  MapLibre via `setWorkerUrl`, so Vite emits it as an asset in both
+  dev and production. After any map change, confirm the built output
+  actually contains a worker asset before deploying.
 - **Mobile layout is stacked, not fixed-height.** Desktop is
   `100dvh` with an internally scrolling sidebar; on mobile
   (`max-width: 760px`) the app grows with its content (map 52dvh on

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import * as maplibregl from 'maplibre-gl';
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import type { InferProps } from 'void';
 import type { loader } from './index.server';
@@ -14,6 +15,14 @@ import {
 import '../src/styles.css';
 
 type Props = InferProps<typeof loader>;
+
+// MapLibre v6 computes its worker URL at runtime
+// (`./maplibre-gl-worker.mjs` relative to the bundle), which Vite cannot
+// statically analyse, so the production build never emits the file and the
+// map fails with "Worker failed to load" (404). Importing it with `?url`
+// makes Vite emit it as an asset and hand us its real URL; setWorkerUrl
+// points MapLibre at it. This is what makes the map work in production.
+maplibregl.setWorkerUrl(workerUrl);
 
 const STYLES = [
   {
@@ -110,6 +119,7 @@ export default function IndexPage({ examples }: Props) {
 
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
+  const [mapError, setMapError] = useState<string | null>(null);
   const popupRef = useRef<maplibregl.Popup | null>(null);
   const selectedRef = useRef<PlaceEntry | null>(null);
   selectedRef.current = selected;
@@ -267,13 +277,30 @@ export default function IndexPage({ examples }: Props) {
 
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
-    const map = new maplibregl.Map({
-      container: mapContainerRef.current,
-      style: STYLES[0].url,
-      center: SINGAPORE,
-      zoom: 11,
-      attributionControl: { compact: true },
-    });
+    // No WebGL, no map: say so in the map pane instead of leaving a blank
+    // box. The list, search and filters keep working without it.
+    const probe = document.createElement('canvas');
+    if (!probe.getContext('webgl2') && !probe.getContext('webgl')) {
+      setMapError(
+        'This browser cannot show the map (no WebGL). The list, search and filters below still work.',
+      );
+      return;
+    }
+    let map: maplibregl.Map;
+    try {
+      map = new maplibregl.Map({
+        container: mapContainerRef.current,
+        style: STYLES[0].url,
+        center: SINGAPORE,
+        zoom: 11,
+        attributionControl: { compact: true },
+      });
+    } catch (e) {
+      setMapError(
+        `The map could not start (${e instanceof Error ? e.message : 'unknown error'}). The list, search and filters still work.`,
+      );
+      return;
+    }
     map.addControl(new maplibregl.NavigationControl(), 'top-right');
     mapRef.current = map;
     // Debug affordance: lets a verification harness read camera state.
@@ -892,7 +919,16 @@ export default function IndexPage({ examples }: Props) {
         </aside>
 
         <section className="mapwrap">
-          <div ref={mapContainerRef} className="map" />
+          {mapError ? (
+            <div className="map-fallback" role="status">
+              <p>
+                <strong>Map unavailable</strong>
+              </p>
+              <p>{mapError}</p>
+            </div>
+          ) : (
+            <div ref={mapContainerRef} className="map" />
+          )}
           <div className="style-switch" role="group" aria-label="Basemap style">
             {STYLES.map((s) => (
               <button

@@ -51,6 +51,12 @@ body {
 }
 .mapwrap { flex: 1; position: relative; min-width: 0; }
 .map { position: absolute; inset: 0; }
+.map-fallback {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 24px; background: #f1f5f4; color: #334155;
+}
+.map-fallback p { margin: 4px 0; }
 .style-switch {
   position: absolute; top: 10px; left: 10px; z-index: 5;
   display: flex; background: #fff; border-radius: 8px;
